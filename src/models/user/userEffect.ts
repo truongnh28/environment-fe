@@ -1,12 +1,9 @@
-import { ActionReducerMapBuilder } from '@reduxjs/toolkit';
-import { userState } from './userState';
+function* fetchUserEffect() {
+    try {
+        console.log('Fetch Effect');
+    } catch {
+        console.log('err');
+    }
+}
 
-const
-
-export const userEffect = (
-    builder: ActionReducerMapBuilder<typeof userState>
-) => {
-    builder.addCase(login, (state, action) => {
-        //
-    });
-};
+export { fetchUserEffect };

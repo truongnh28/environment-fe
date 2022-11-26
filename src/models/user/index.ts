@@ -6,11 +6,6 @@ const userSlice = createSlice({
     name: 'user',
     initialState: userState,
     reducers: userReducers,
-    extraReducers: (builder) => {
-        builder.addCase(login, (state, action) => {
-            //
-        });
-    },
 });
 
 export const { logout } = userSlice.actions;
