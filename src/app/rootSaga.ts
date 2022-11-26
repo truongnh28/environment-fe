@@ -1,9 +1,10 @@
-import { all } from 'redux-saga/effects';
+import { loginSaga } from 'models/user/effects';
+import { all, takeLatest } from 'redux-saga/effects';
 
 function* helloSaga() {
     yield console.log('Hello saga');
 }
 export default function* rootSaga() {
-    yield console.log('rootSaga is running!');
-    yield all([helloSaga()]);
+    yield takeLatest('USER_LOGIN', loginSaga);
+    // yield all([helloSaga()]);
 }

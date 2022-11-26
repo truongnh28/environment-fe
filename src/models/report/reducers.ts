@@ -1,3 +1,9 @@
+import { Report } from 'services/reportAPI';
+import { ReportModel } from './state';
+
 export const reportReducers = {
-    setReport: () => {},
+    setReport: (state: ReportModel, newReport: Report) => ({
+        ...state,
+        data: newReport,
+    }),
 };

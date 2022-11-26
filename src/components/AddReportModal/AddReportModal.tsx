@@ -6,8 +6,12 @@ import {
     TextField,
     TextareaAutosize,
     Button,
+    MenuItem,
+    Select,
 } from '@mui/material';
 import UploadImage from '../UploadImage';
+import { District } from '../../constants/Location';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 type Props = {
     open: boolean;
     setOpen: any;
@@ -25,6 +29,15 @@ const style = {
 };
 export default function AddReportModal({ open, setOpen }: Props) {
     const handleClose = () => setOpen(false);
+    const carddata = useAppSelector((state) => state.carddata);
+    const dispatch = useAppDispatch();
+    const handleSubmit = () => {
+        dispatch({
+            type: 'carddata/setCardData',
+            payload: { draft: carddata.draft + 1 },
+        });
+        handleClose();
+    };
     return (
         <Modal
             open={open}
@@ -57,11 +70,31 @@ export default function AddReportModal({ open, setOpen }: Props) {
                         padding: '14px',
                     }}
                 />
+                <div style={{ display: 'flex', gap: '4px' }}>
+                    <Select
+                        labelId='demo-simple-select-label'
+                        id='demo-simple-select'
+                        label='Age'
+                        style={{ width: 532 }}
+                    >
+                        {District.map((item) => (
+                            <MenuItem key={item} value={10}>
+                                {item}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </div>
                 <div
-                    style={{ display: 'flex', justifyContent: 'space-between' }}
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        marginTop: '10px',
+                    }}
                 >
                     <UploadImage />
-                    <Button variant='contained'>GỬI</Button>
+                    <Button variant='contained' onClick={() => handleSubmit()}>
+                        GỬI
+                    </Button>
                 </div>
             </Box>
         </Modal>

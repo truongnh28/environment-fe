@@ -5,10 +5,11 @@ import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import './Reports.scss';
+import { useAppSelector } from 'app/hooks';
 type Props = {};
 
 export default function Report() {
-    const [reports, setReport] = useState([1, 2, 3, 4, 5]);
+    const reports = useAppSelector((state) => state.reports);
     return (
         <List
             sx={{
@@ -20,16 +21,14 @@ export default function Report() {
             }}
             className='reportor__reportlist'
         >
-            {reports.map(() => (
-                <React.Fragment>
+            {reports.data.map((rp) => (
+                <React.Fragment key={rp.id}>
                     <ListItem alignItems='flex-start'>
                         <ListItemText
-                            primary='Con sông bị ô nhiễm'
+                            primary={rp.title}
                             secondary={
                                 <React.Fragment>
-                                    {
-                                        ' — Con kênh rạch Xáng gần nhà tôi có hiện tượng ô nhiễm, nước bốc…'
-                                    }
+                                    {rp.description}
                                 </React.Fragment>
                             }
                         />
