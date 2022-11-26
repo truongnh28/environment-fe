@@ -3,7 +3,10 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
-export default function CardItem({ title = 'Phản hồi của tôi', number = '0' }) {
+export default function CardItem({
+    title = 'Phản hồi của tôi',
+    number = '199',
+}) {
     return (
         <Card>
             <CardContent>
