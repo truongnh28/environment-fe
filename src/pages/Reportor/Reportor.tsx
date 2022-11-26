@@ -24,6 +24,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AppBarMobile from 'components/AppBarMobile';
 import './Reportor.scss';
 import AddReportModal from 'components/AddReportModal';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 const mdTheme = createTheme();
 const StyledFab = styled(Fab)({
     position: 'absolute',
@@ -36,9 +37,12 @@ const StyledFab = styled(Fab)({
 
 const Reportor: React.FC = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const carddata = useAppSelector((state) => state.carddata);
+    const dispatch = useAppDispatch();
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(anchorEl ? null : event.currentTarget);
     };
+
     const [openModal, setOpenModal] = React.useState(false);
     return (
         <ThemeProvider theme={mdTheme}>
@@ -91,32 +95,35 @@ const Reportor: React.FC = () => {
                     className='reportor__content'
                 >
                     {/* <Toolbar /> */}
-                    <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
+                    <Container
+                        maxWidth='lg'
+                        sx={{ mt: 4, mb: 4, overflowY: 'scroll' }}
+                    >
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
                                 <Grid container spacing={3}>
                                     <Grid item xs={6} sm={3}>
                                         <CardItem
                                             title='Phản hồi của tôi'
-                                            number='300'
+                                            number={carddata.draft + ''}
                                         />
                                     </Grid>
                                     <Grid item xs={6} sm={3}>
                                         <CardItem
-                                            title='Đang xử lý'
-                                            number='300'
+                                            title='Phản hồi đang xử lý'
+                                            number={carddata.handling + ''}
                                         />
                                     </Grid>
                                     <Grid item xs={6} sm={3}>
                                         <CardItem
-                                            title='Đã xử lý'
-                                            number='300'
+                                            title='Phản hồi đã xử lý'
+                                            number={carddata.resolved + ''}
                                         />
                                     </Grid>
                                     <Grid item xs={6} sm={3}>
                                         <CardItem
-                                            title='Bị từ chối'
-                                            number='300'
+                                            title='Phản hồi bị từ chối'
+                                            number={carddata.rejected + ''}
                                         />
                                     </Grid>
                                 </Grid>

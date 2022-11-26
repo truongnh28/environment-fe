@@ -1,11 +1,15 @@
 import axiosClient from './axiosClient';
 export type User = {
-    username: string;
-    passwork: string;
+    id?: number;
+    user_name: string;
+    pass_word: string;
+    email?: string;
+    phone?: string;
+    is_resolver?: true;
 };
 export const userAPI = {
     async login(account: User) {
-        const url = '/auth/login';
+        const url = '/user/login';
         const res = await axiosClient.post(url, account);
         return res;
     },

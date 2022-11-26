@@ -6,11 +6,12 @@ import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import { Chip } from '@mui/material';
+import { useAppSelector } from 'app/hooks';
 
 type Props = {};
 
 export default function Report() {
-    const [reports, setReports] = React.useState([1, 2, 3, 4, 5, 6]);
+    const report = useAppSelector((state) => state.report);
     return (
         <Paper
             sx={{
@@ -22,16 +23,22 @@ export default function Report() {
             }}
         >
             <Typography variant='h6' gutterBottom>
-                rạch Xáng bị ô nhiễn rác rất nhiều
-                <Chip color='primary' label='Đã nhận' />
+                {report.data?.title}
+                <Chip
+                    color='primary'
+                    label={
+                        report.data && report.data.status
+                            ? report.data.status
+                            : 'Đang chờ xử lý'
+                    }
+                />
             </Typography>
             <Typography variant='subtitle1' gutterBottom>
                 26/11/2022
             </Typography>
             <Divider />
             <Typography variant='body1' gutterBottom>
-                Con kênh rạch Xáng gần nhà tôi có hiện tượng ô nhiễm, nước bốc
-                mùi và màu sẫm, rất khó chịu. Mong cơ quan giải quyết.
+                {report.data?.description}
             </Typography>
             <img
                 src={`https://photo-cms-plo.epicdn.me/w850/Uploaded/2022/rptkbun/2022_07_04/hinh2-rac-tren-kenh-te-5-7-2363.jpg?w=164&h=164&fit=crop&auto=format`}
