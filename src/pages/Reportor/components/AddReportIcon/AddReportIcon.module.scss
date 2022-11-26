@@ -1,0 +1,11 @@
+@import '../../../../styles/variables';
+@import '../../../../styles/mixins';
+.addReport {
+    position: absolute !important;
+    @include xs {
+        bottom: 20px;
+        right: 50vw;
+    }
+    bottom: 40px;
+    right: 20px;
+}
