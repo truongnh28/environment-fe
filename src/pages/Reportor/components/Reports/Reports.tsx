@@ -5,11 +5,16 @@ import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import './Reports.scss';
-import { useAppSelector } from 'app/hooks';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { Report } from 'services/reportAPI';
 type Props = {};
 
-export default function Report() {
+export default function Reports() {
     const reports = useAppSelector((state) => state.reports);
+    const dispatch = useAppDispatch();
+    const handleClickRp = (report: Report) => {
+        dispatch({ type: 'report/setReport', payload: report });
+    };
     return (
         <List
             sx={{
@@ -23,7 +28,11 @@ export default function Report() {
         >
             {reports.data.map((rp) => (
                 <React.Fragment key={rp.id}>
-                    <ListItem alignItems='flex-start'>
+                    <ListItem
+                        alignItems='flex-start'
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => handleClickRp(rp)}
+                    >
                         <ListItemText
                             primary={rp.title}
                             secondary={
@@ -33,7 +42,7 @@ export default function Report() {
                             }
                         />
                     </ListItem>
-                    <Divider variant='inset' component='li' />
+                    <Divider component='li' />
                 </React.Fragment>
             ))}
         </List>

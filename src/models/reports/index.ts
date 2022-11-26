@@ -1,11 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { reportsReducers } from './reducers';
-import { reportsState } from './state';
+import { ReportsModel, reportsState } from './state';
 
 const reportsSlice = createSlice({
-    name: 'report',
+    name: 'reports',
     initialState: reportsState,
-    reducers: reportsReducers,
+    reducers: {
+        setReports(state: ReportsModel, action) {
+            console.log('setReports', action.payload);
+            state.data = action.payload;
+        },
+    },
 });
 
 export const { setReports } = reportsSlice.actions;

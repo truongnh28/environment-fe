@@ -1,3 +1,5 @@
+import axiosClient from './axiosClient';
+
 export type Report = {
     id: number;
     title: string;
@@ -12,4 +14,12 @@ export type Report = {
     address: string;
     lag: number;
     lng: number;
+};
+
+export const reportAPI = {
+    async getReports() {
+        const url = '/report/get_all';
+        const res = await axiosClient.get(url);
+        return res;
+    },
 };
