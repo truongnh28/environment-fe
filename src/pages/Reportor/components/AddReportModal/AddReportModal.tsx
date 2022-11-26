@@ -1,9 +1,13 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-
+import {
+    Box,
+    Typography,
+    Modal,
+    TextField,
+    TextareaAutosize,
+    Button,
+} from '@mui/material';
+import UploadImage from '../UploadImage';
 type Props = {
     open: boolean;
     setOpen: any;
@@ -13,14 +17,13 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: 600,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
 };
 export default function AddReportModal({ open, setOpen }: Props) {
-    // const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     return (
         <Modal
@@ -31,12 +34,35 @@ export default function AddReportModal({ open, setOpen }: Props) {
         >
             <Box sx={style}>
                 <Typography id='modal-modal-title' variant='h6' component='h2'>
-                    Text in a modal
+                    Phản hồi về ô nhiễm môi trường
                 </Typography>
-                <Typography id='modal-modal-description' sx={{ mt: 2 }}>
-                    Duis mollis, est non commodo luctus, nisi erat porttitor
-                    ligula.
-                </Typography>
+                <TextField
+                    margin='normal'
+                    required
+                    fullWidth
+                    id='tiele'
+                    label='Tiêu đề'
+                    name='title'
+                    autoComplete='title'
+                    autoFocus
+                    sx={{ width: 532 }}
+                />
+                <TextareaAutosize
+                    aria-label='empty textarea'
+                    placeholder='Nội dung'
+                    style={{
+                        width: 532,
+                        height: 240,
+                        marginTop: 20,
+                        padding: '14px',
+                    }}
+                />
+                <div
+                    style={{ display: 'flex', justifyContent: 'space-between' }}
+                >
+                    <UploadImage />
+                    <Button variant='contained'>GỬI</Button>
+                </div>
             </Box>
         </Modal>
     );

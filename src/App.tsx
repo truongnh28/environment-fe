@@ -6,6 +6,7 @@ function App() {
     return (
         <Routes>
             <Route path='/resolver/report' element={<ResolverReports />} />
+            <Route path='/reportor' element={<Reportor />} />
             {/* <Route path="/resolver/report" element={<ResolverReportDetail />} /> */}
         </Routes>
     );

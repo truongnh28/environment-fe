@@ -22,7 +22,8 @@ export default function Report() {
             }}
         >
             <Typography variant='h6' gutterBottom>
-                THis is tile <Chip color='primary' label='Soft' />
+                Khu vực sông bị ô nhiễn rác rất nhiều
+                <Chip color='primary' label='Đã nhận' />
             </Typography>
             <Typography variant='subtitle1' gutterBottom>
                 26/11/2022
@@ -40,6 +41,13 @@ export default function Report() {
                 publishing software like Aldus PageMaker including versions of
                 Lorem Ipsum.
             </Typography>
+            <img
+                src={`https://photo-cms-plo.epicdn.me/w850/Uploaded/2022/rptkbun/2022_07_04/hinh2-rac-tren-kenh-te-5-7-2363.jpg?w=164&h=164&fit=crop&auto=format`}
+                srcSet={`https://photo-cms-plo.epicdn.me/w850/Uploaded/2022/rptkbun/2022_07_04/hinh2-rac-tren-kenh-te-5-7-2363.jpg?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                alt=''
+                width={250}
+                loading='lazy'
+            />
         </Paper>
     );
 }

@@ -81,13 +81,13 @@ const Reportor: React.FC = () => {
                                         <CardItem />
                                     </Grid>
                                     <Grid item xs={3}>
-                                        <CardItem />
+                                        <CardItem title='Đang xử lý' />
                                     </Grid>
                                     <Grid item xs={3}>
-                                        <CardItem />
+                                        <CardItem title='Đã xử lý' />
                                     </Grid>
                                     <Grid item xs={3}>
-                                        <CardItem />
+                                        <CardItem title='Bị từ chối' />
                                     </Grid>
                                 </Grid>
                             </Grid>

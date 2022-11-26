@@ -3,9 +3,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
-type Props = {};
-
-export default function CardItem() {
+export default function CardItem({ title = 'Phản hồi của tôi', number = '0' }) {
     return (
         <Card>
             <CardContent>
@@ -14,14 +12,14 @@ export default function CardItem() {
                     color='text.secondary'
                     gutterBottom
                 >
-                    Phản hồi của tôi
+                    {title}
                 </Typography>
                 <Typography
                     sx={{ fontSize: 20 }}
                     color='text.secondary'
                     gutterBottom
                 >
-                    1000
+                    {number}
                 </Typography>
             </CardContent>
         </Card>
