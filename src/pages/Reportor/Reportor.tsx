@@ -25,6 +25,7 @@ import AppBarMobile from 'components/AppBarMobile';
 import './Reportor.scss';
 import AddReportModal from 'components/AddReportModal';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { reportAPI } from 'services/reportAPI';
 const mdTheme = createTheme();
 const StyledFab = styled(Fab)({
     position: 'absolute',
@@ -37,13 +38,28 @@ const StyledFab = styled(Fab)({
 
 const Reportor: React.FC = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [openModal, setOpenModal] = React.useState(false);
+
     const carddata = useAppSelector((state) => state.carddata);
     const dispatch = useAppDispatch();
+
+    React.useEffect(() => {
+        const fetchRpData = async () => {
+            try {
+                const data: any = await reportAPI.getReports();
+                console.log('data.Reports', data.Reports);
+                dispatch({ type: 'reports/setReports', payload: data.Reports });
+            } catch {
+                console.log('err');
+            }
+        };
+        fetchRpData();
+    }, []);
+
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(anchorEl ? null : event.currentTarget);
     };
 
-    const [openModal, setOpenModal] = React.useState(false);
     return (
         <ThemeProvider theme={mdTheme}>
             <Box sx={{ display: 'flex' }}>

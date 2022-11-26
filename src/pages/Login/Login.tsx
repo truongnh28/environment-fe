@@ -56,7 +56,7 @@ export default function SignIn() {
                 if (data.Users[0].is_resolver) {
                     navigate('/resolver/report');
                 } else {
-                    navigate('/reportor');
+                    navigate('/');
                 }
             } catch {
                 setAlert(true);
