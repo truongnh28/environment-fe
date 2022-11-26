@@ -1,4 +1,4 @@
-import { userState } from './userState';
+import { userState } from './state';
 
 export const userReducers = {
     logout: () => {
