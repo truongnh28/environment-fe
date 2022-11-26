@@ -17,7 +17,7 @@ const AddReportIcon: React.FC<Props> = ({
     right = 0,
     bottom = 0,
 }) => {
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
     const handleOpenModal = () => setOpen(true);
     return (
         <React.Fragment>

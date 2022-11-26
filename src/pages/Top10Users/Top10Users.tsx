@@ -6,16 +6,22 @@ import React from "react";
 import AppBar from '../../components/AppBar';
 import { top10Users } from "../../constants/DataMock";
 import HomeIcon from '@mui/icons-material/Home';
-import Reports from "./Reports";
 import { Link } from "react-router-dom";
 import ListIcon from '@mui/icons-material/List';
 const mdTheme = createTheme();
-
-function ResolverReports() {
+export default function Top10Users() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(anchorEl ? null : event.currentTarget);
     };
+    const data = top10Users.map((user) => (
+        <ListItem key={user.id}>
+            <ListItemAvatar>
+                <Avatar>{user.avatar}</Avatar>
+            </ListItemAvatar>
+            <ListItemText primary={user.username + ' - ' + user.num_reports + ' lần báo cáo'} />
+        </ListItem>
+    ))
     return (
         <ThemeProvider theme={mdTheme}>
             <Box sx={{ display: 'flex' }}>
@@ -63,16 +69,20 @@ function ResolverReports() {
                                 ? theme.palette.grey[100]
                                 : theme.palette.grey[900],
                         flexGrow: 1,
-                        height: '100vh',
+                        height: 'fit-content',
                         overflow: 'auto',
                     }}
                     className='reportor__content'
                 >
+                    {/* <Toolbar /> */}
                     <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
                         <Grid container justifyContent="center">
                             <Grid item>
                                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                                    <Reports />
+                                    <Typography variant="h4">Top 10 người dùng</Typography>
+                                    <List sx={{ maxWidth: 500 }}>
+                                        {data}
+                                    </List>
                                 </Paper>
                             </Grid>
                         </Grid>
@@ -83,5 +93,3 @@ function ResolverReports() {
         </ThemeProvider>
     );
 }
-
-export default ResolverReports;
