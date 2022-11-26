@@ -1,47 +1,55 @@
 import * as React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
+import {
+    CssBaseline,
+    Toolbar,
+    IconButton,
+    Typography,
+    Popper,
+    Button,
+    Fab,
+} from '@mui/material';
 
 import Box from '@mui/material/Box';
 import AppBar from '../../components/AppBar';
 import Report from './components/Report';
 import Reports from './components/Reports';
-import AddReportIcon from './components/AddReportIcon';
+import AddReportIcon from '../../components/AddReportIcon';
+import AddIcon from '@mui/icons-material/Add';
 import CardItem from './components/CardItem';
-
-import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import MenuIcon from '@mui/icons-material/Menu';
-import AddReportModal from './components/AddReportModal';
-
+import HomeIcon from '@mui/icons-material/Home';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AppBarMobile from 'components/AppBarMobile';
+import './Reportor.scss';
+import AddReportModal from 'components/AddReportModal';
 const mdTheme = createTheme();
+const StyledFab = styled(Fab)({
+    position: 'absolute',
+    zIndex: 1,
+    top: -30,
+    left: 0,
+    right: 0,
+    margin: '0 auto',
+});
 
 const Reportor: React.FC = () => {
-    const [open, setOpen] = React.useState(true);
-
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(anchorEl ? null : event.currentTarget);
+    };
+    const [openModal, setOpenModal] = React.useState(false);
     return (
         <ThemeProvider theme={mdTheme}>
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
-                {/* <AppBar position='absolute' open={open}>
+                <AppBar position='absolute' className='toolbar' open={false}>
                     <Toolbar
                         sx={{
                             pr: '24px', // keep right padding when drawer closed
                         }}
                     >
-                        <IconButton
-                            edge='start'
-                            color='inherit'
-                            aria-label='open drawer'
-                            onClick={toggleDrawer}
-                            sx={{
-                                marginRight: '36px',
-                                ...(open && { display: 'none' }),
-                            }}
-                        >
-                            <MenuIcon />
-                        </IconButton>
                         <Typography
                             component='h1'
                             variant='h6'
@@ -49,16 +57,26 @@ const Reportor: React.FC = () => {
                             noWrap
                             sx={{ flexGrow: 1 }}
                         >
-                            Dashboard
+                            <HomeIcon />
                         </Typography>
-                        <IconButton color='inherit'>
-                            <Badge badgeContent={4} color='secondary'>
-                                <NotificationsIcon />
-                            </Badge>
+                        <IconButton color='inherit' onClick={handleClick}>
+                            <AccountCircleIcon />
                         </IconButton>
+                        <Popper open={Boolean(anchorEl)} anchorEl={anchorEl}>
+                            <Box
+                                sx={{
+                                    border: 0,
+                                    p: 1,
+                                    bgcolor: 'background.paper',
+                                    zIndex: 100,
+                                }}
+                            >
+                                <Button variant='contained'>Logout</Button>
+                            </Box>
+                        </Popper>
                     </Toolbar>
-                </AppBar> */}
-                <AddReportModal open={open} setOpen={setOpen} />
+                </AppBar>
+                <AddReportModal open={openModal} setOpen={setOpenModal} />
                 <Box
                     component='main'
                     sx={{
@@ -67,27 +85,39 @@ const Reportor: React.FC = () => {
                                 ? theme.palette.grey[100]
                                 : theme.palette.grey[900],
                         flexGrow: 1,
-                        height: '100vh',
+                        height: 'fit-content',
                         overflow: 'auto',
                     }}
+                    className='reportor__content'
                 >
                     {/* <Toolbar /> */}
                     <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
-                        <AddReportIcon setOpen={setOpen} />
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
                                 <Grid container spacing={3}>
-                                    <Grid item xs={3}>
-                                        <CardItem />
+                                    <Grid item xs={6} sm={3}>
+                                        <CardItem
+                                            title='Phản hồi của tôi'
+                                            number='300'
+                                        />
                                     </Grid>
-                                    <Grid item xs={3}>
-                                        <CardItem title='Đang xử lý' />
+                                    <Grid item xs={6} sm={3}>
+                                        <CardItem
+                                            title='Đang xử lý'
+                                            number='300'
+                                        />
                                     </Grid>
-                                    <Grid item xs={3}>
-                                        <CardItem title='Đã xử lý' />
+                                    <Grid item xs={6} sm={3}>
+                                        <CardItem
+                                            title='Đã xử lý'
+                                            number='300'
+                                        />
                                     </Grid>
-                                    <Grid item xs={3}>
-                                        <CardItem title='Bị từ chối' />
+                                    <Grid item xs={6} sm={3}>
+                                        <CardItem
+                                            title='Bị từ chối'
+                                            number='300'
+                                        />
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -99,8 +129,17 @@ const Reportor: React.FC = () => {
                             </Grid>
                         </Grid>
                     </Container>
+                    <Fab
+                        color='primary'
+                        className='add-report__btn'
+                        aria-label='add'
+                        onClick={() => setOpenModal(true)}
+                    >
+                        <AddIcon />
+                    </Fab>
                 </Box>
             </Box>
+            <AppBarMobile />
         </ThemeProvider>
     );
 };
