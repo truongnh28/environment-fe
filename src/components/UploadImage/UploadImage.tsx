@@ -4,9 +4,13 @@ import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Stack from '@mui/material/Stack';
 
-export default function UploadImage() {
+type Props = {
+    file: File | null;
+    setFile: any;
+};
+
+export default function UploadImage({ file, setFile }: Props) {
     const imgFile = React.useRef(null);
-    const [file, setFile] = React.useState<File | null>(null);
     const handleChange = (e: any) => {
         setFile(e.target.files[0]);
     };

@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 
 import Box from '@mui/material/Box';
-import AppBar from '../../components/AppBar';
+import MyAppBar from '../../components/AppBar';
 import Report from './components/Report';
 import Reports from './components/Reports';
 import AddReportIcon from '../../components/AddReportIcon';
@@ -64,38 +64,8 @@ const Reportor: React.FC = () => {
         <ThemeProvider theme={mdTheme}>
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
-                <AppBar position='absolute' className='toolbar' open={false}>
-                    <Toolbar
-                        sx={{
-                            pr: '24px', // keep right padding when drawer closed
-                        }}
-                    >
-                        <Typography
-                            component='h1'
-                            variant='h6'
-                            color='inherit'
-                            noWrap
-                            sx={{ flexGrow: 1 }}
-                        >
-                            <HomeIcon />
-                        </Typography>
-                        <IconButton color='inherit' onClick={handleClick}>
-                            <AccountCircleIcon />
-                        </IconButton>
-                        <Popper open={Boolean(anchorEl)} anchorEl={anchorEl}>
-                            <Box
-                                sx={{
-                                    border: 0,
-                                    p: 1,
-                                    bgcolor: 'background.paper',
-                                    zIndex: 100,
-                                }}
-                            >
-                                <Button variant='contained'>Logout</Button>
-                            </Box>
-                        </Popper>
-                    </Toolbar>
-                </AppBar>
+                <MyAppBar />
+
                 <AddReportModal open={openModal} setOpen={setOpenModal} />
                 <Box
                     component='main'

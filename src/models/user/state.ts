@@ -1,7 +1,7 @@
 import type { User } from '../../services/userAPI';
 
 export type UserModel = {
-    user: User;
+    user: User | null;
     isFetching: boolean;
     error: boolean;
 };

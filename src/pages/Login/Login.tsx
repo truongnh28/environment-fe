@@ -52,12 +52,9 @@ export default function SignIn() {
                     user_name: user_name,
                     pass_word: pass_word,
                 });
-                console.log('datauser', data.Users[0]);
-                if (data.Users[0].is_resolver) {
-                    navigate('/resolver/report');
-                } else {
-                    navigate('/');
-                }
+                dispatch({ type: 'user/setUser', payload: data.Users[0] });
+
+                navigate('/');
             } catch {
                 setAlert(true);
                 console.log('err');

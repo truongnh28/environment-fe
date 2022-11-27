@@ -22,4 +22,15 @@ export const reportAPI = {
         const res = await axiosClient.get(url);
         return res;
     },
+    async uploadFile(file: File) {
+        const url = '/report/upload_file';
+        const res = await axiosClient.post(url, { image: file });
+        console.log('image', res);
+        return res;
+    },
+    async postReport(report: any) {
+        const url = '/report/create';
+        const res = await axiosClient.post(url, report);
+        return res;
+    },
 };

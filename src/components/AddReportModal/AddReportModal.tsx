@@ -12,6 +12,7 @@ import {
 import UploadImage from '../UploadImage';
 import { District } from '../../constants/Location';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { reportAPI } from 'services/reportAPI';
 type Props = {
     open: boolean;
     setOpen: any;
@@ -28,16 +29,41 @@ const style = {
     p: 4,
 };
 export default function AddReportModal({ open, setOpen }: Props) {
+    const [title, setTitle] = React.useState('');
+    const [description, setDescription] = React.useState('');
+    const [district, setDistrict] = React.useState('');
+    const [file, setFile] = React.useState<File | null>(null);
     const handleClose = () => setOpen(false);
     const carddata = useAppSelector((state) => state.carddata);
     const dispatch = useAppDispatch();
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         dispatch({
             type: 'carddata/setCardData',
             payload: { draft: carddata.draft + 1 },
         });
+        try {
+            let link = null;
+            if (file) {
+                link = await reportAPI.uploadFile(file);
+                console.log(link);
+            }
+            const rpdata = {
+                title,
+                description,
+                district,
+                image_url: link,
+            };
+            console.log('rpdata', rpdata);
+            reportAPI.postReport(rpdata);
+        } catch {
+            console.log('err');
+        }
+        setFile(null);
         handleClose();
     };
+    React.useEffect(() => {
+        console.log('file', file);
+    }, [file]);
     return (
         <Modal
             open={open}
@@ -53,6 +79,8 @@ export default function AddReportModal({ open, setOpen }: Props) {
                     margin='normal'
                     required
                     fullWidth
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
                     id='tiele'
                     label='Tiêu đề'
                     name='title'
@@ -63,6 +91,8 @@ export default function AddReportModal({ open, setOpen }: Props) {
                 <TextareaAutosize
                     aria-label='empty textarea'
                     placeholder='Nội dung'
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                     style={{
                         width: 532,
                         height: 240,
@@ -76,9 +106,11 @@ export default function AddReportModal({ open, setOpen }: Props) {
                         id='demo-simple-select'
                         label='Age'
                         style={{ width: 532 }}
+                        value={district}
+                        onChange={(e) => setDistrict(e.target.value)}
                     >
                         {District.map((item) => (
-                            <MenuItem key={item} value={10}>
+                            <MenuItem key={item} value={item}>
                                 {item}
                             </MenuItem>
                         ))}
@@ -91,7 +123,7 @@ export default function AddReportModal({ open, setOpen }: Props) {
                         marginTop: '10px',
                     }}
                 >
-                    <UploadImage />
+                    <UploadImage file={file} setFile={setFile} />
                     <Button variant='contained' onClick={() => handleSubmit()}>
                         GỬI
                     </Button>

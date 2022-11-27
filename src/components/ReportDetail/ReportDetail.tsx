@@ -1,9 +1,11 @@
 import React from 'react';
 import { Paper, Typography, Stack, Box } from '@mui/material';
 import './ReportDetail.scss';
+import { useAppSelector } from 'app/hooks';
 type Props = {};
 
 const ReportDetail = (props: Props) => {
+    const report = useAppSelector((state) => state.report);
     return (
         <Paper
             sx={{
@@ -13,15 +15,13 @@ const ReportDetail = (props: Props) => {
             }}
         >
             <Typography component='h2' variant='h2' color='primary'>
-                Con Kênh tàu hũ có hiện tượng cá chết hàng loạt
+                {report.data?.title}
             </Typography>
             <Typography variant='subtitle2' gutterBottom>
                 Đăng lúc 26/11/2022 - Thanh.nn
             </Typography>
             <Typography variant='body1' gutterBottom>
-                Sáng nay kênh Tàu hũ tại Thị Nghè có hiện tượng cá chết hàng
-                loạt, không rõ nguyên nhân. Nước có mùi hôi khó chịu, có váng
-                dầu. Mong chính quyền giải quyết.
+                {report.data?.description}
             </Typography>
             <div>
                 <Typography variant='h6'>Hình ảnh minh họa</Typography>

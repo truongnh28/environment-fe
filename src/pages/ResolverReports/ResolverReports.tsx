@@ -1,14 +1,36 @@
-import { Avatar, Box, Button, Card, Container, CssBaseline, Fab, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText, Paper, Popper, Stack, ThemeProvider, Toolbar, Typography } from "@mui/material";
-import AppBarMobile from "components/AppBarMobile";
+import {
+    Avatar,
+    Box,
+    Button,
+    Card,
+    Container,
+    CssBaseline,
+    Fab,
+    Grid,
+    IconButton,
+    List,
+    ListItem,
+    ListItemAvatar,
+    ListItemText,
+    Paper,
+    Popper,
+    Stack,
+    ThemeProvider,
+    Toolbar,
+    Typography,
+} from '@mui/material';
+import AppBarMobile from 'components/AppBarMobile';
 import { styled, createTheme } from '@mui/material/styles';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import React from "react";
-import AppBar from '../../components/AppBar';
-import { top10Users } from "../../constants/DataMock";
+import React from 'react';
+import MyAppBar from '../../components/AppBar';
+import { top10Users } from '../../constants/DataMock';
 import HomeIcon from '@mui/icons-material/Home';
-import Reports from "./Reports";
-import { Link } from "react-router-dom";
+import Reports from './Reports';
+import { Link } from 'react-router-dom';
 import ListIcon from '@mui/icons-material/List';
+import { reportAPI } from 'services/reportAPI';
+import { useAppDispatch } from 'app/hooks';
 const mdTheme = createTheme();
 
 function ResolverReports() {
@@ -16,45 +38,25 @@ function ResolverReports() {
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(anchorEl ? null : event.currentTarget);
     };
+    const dispatch = useAppDispatch();
+    React.useEffect(() => {
+        const fetchRpData = async () => {
+            try {
+                const data: any = await reportAPI.getReports();
+                console.log('data.Reports', data.Reports);
+                dispatch({ type: 'reports/setReports', payload: data.Reports });
+            } catch {
+                console.log('err');
+            }
+        };
+        fetchRpData();
+    }, []);
+
     return (
         <ThemeProvider theme={mdTheme}>
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
-                <AppBar position='absolute' className='toolbar' open={false}>
-                    <Toolbar
-                        sx={{
-                            pr: '24px', // keep right padding when drawer closed
-                        }}
-                    >
-                        <Typography
-                            component='h1'
-                            variant='h6'
-                            color='inherit'
-                            noWrap
-                            sx={{ flexGrow: 1 }}
-                        >
-                            <Stack direction="row" spacing={3}>
-                                <Link to="#" style={{color: "white"}}><HomeIcon /></Link>
-                                <Link to="#" style={{color: "white"}}><ListIcon /></Link>
-                            </Stack>
-                        </Typography>
-                        <IconButton color='inherit' onClick={handleClick}>
-                            <AccountCircleIcon />
-                        </IconButton>
-                        <Popper open={Boolean(anchorEl)} anchorEl={anchorEl}>
-                            <Box
-                                sx={{
-                                    border: 0,
-                                    p: 1,
-                                    bgcolor: 'background.paper',
-                                    zIndex: 100,
-                                }}
-                            >
-                                <Button variant='contained'>Logout</Button>
-                            </Box>
-                        </Popper>
-                    </Toolbar>
-                </AppBar>
+                <MyAppBar />
                 <Box
                     component='main'
                     sx={{
@@ -63,15 +65,22 @@ function ResolverReports() {
                                 ? theme.palette.grey[100]
                                 : theme.palette.grey[900],
                         flexGrow: 1,
-                        height: '100vh',
+                        height: '90vh',
                         overflow: 'auto',
+                        marginTop: '60px',
                     }}
                     className='reportor__content'
                 >
                     <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
-                        <Grid container justifyContent="center">
+                        <Grid container justifyContent='center'>
                             <Grid item>
-                                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                                <Paper
+                                    sx={{
+                                        p: 2,
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                    }}
+                                >
                                     <Reports />
                                 </Paper>
                             </Grid>

@@ -7,7 +7,6 @@ const reportsSlice = createSlice({
     initialState: reportsState,
     reducers: {
         setReports(state: ReportsModel, action) {
-            console.log('setReports', action.payload);
             state.data = action.payload;
         },
     },
